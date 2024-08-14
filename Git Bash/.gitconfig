@@ -1,0 +1,51 @@
+[user]
+	email = 138321129+Coding4Hours@users.noreply.github.com
+	name = Google
+
+[init]
+        default = branch
+[filter "lfs"]
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true
+[commit]
+        template = ~/.gitmessage
+[alias]
+        st = status
+        ct = commit -am
+        amend=commit --amend --edit
+        append=commit --amend --no-edit
+        history = log --pretty='format:%Cgreen%h%Creset %an - %s' --graph
+        cdroot = !powershell -File ~/cdroot.ps1
+        root = !\"C:\\Program Files (x86)\\PowerShell\\7\\pwsh.exe\" -File ~/cdroot.ps1
+        back = revert
+        allinone = rebase --interactive
+        home = switch -
+        please = push --force-with-lease --force-if-includes
+        mpatch = add --patch
+        spatch = stash --patch
+        kpatch = reset --patch
+        restore-amend = "!f() { git restore --patch HEAD^1 && git commit --amend --no-edit; }; f"
+        wip = commit --message 'Work in Progress' --no-verify
+        uncommit = reset --soft "HEAD~1"
+        unamend =  reset --soft "HEAD@{1}"
+        clone-sub = "!f() { git init && git remote add origin $2 && git config core.sparseCheckout true && echo \"$1\" >> .git/info/sparse-checkout && git pull origin $3; }; f"
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    side-by-side = true
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    # dark = true
+    # light = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
